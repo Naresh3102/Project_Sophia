@@ -1,0 +1,143 @@
+/* Import fonts from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Roboto&display=swap");
+
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Apply styles to the body */
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: "Nunito", sans-serif; /* Use imported font */
+  background-color: #bab9b9;
+  margin: 0; /* Remove top margin */
+}
+
+/* Style the header */
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 0.1rem 0; /* Add margin top and bottom */
+}
+
+/* Style paragraphs */
+p {
+  text-align: center;
+  margin: 0.1rem 0; /* Add margin top and bottom */
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Apply styles to the main container */
+.main-container {
+  display: flex;
+  flex-direction: row; /* Change to column layout on small screens */
+  align-items: center; /* Center align on small screens */
+  justify-content: space-evenly;
+}
+
+/* Style the text container */
+.text-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Full width on small screens */
+  max-width: 400px; /* Limit width on larger screens */
+  margin: 1rem; /* Add some margin for spacing */
+  padding: 1rem; /* Add padding for spacing */
+  border: 1px solid black;
+}
+
+/* Style the input field */
+input[type="text"] {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background-color: #c8c8c8;
+}
+
+/* Style the datalist dropdown */
+datalist {
+  display: none; /* Hide the default dropdown arrow */
+}
+
+/* Style the options within the datalist */
+datalist option {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #fff;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+/* Style the options on hover */
+datalist option:hover {
+  background-color: #a5a5a5;
+}
+
+/* Style the capture button */
+#capture-button {
+  font-family: "Nunito", sans-serif;
+  background-color: #111112;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 200px;
+  margin: 1rem 0; /* Add margin for spacing */
+}
+
+#capture-button:hover {
+  box-shadow: 0 0 10px #000000, 0 0 15px #000000, 0 0 20px #000000;
+}
+
+/* Style the image container */
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Full width on small screens */
+  max-width: 500px; /* Limit width on larger screens */
+  margin: 1rem; /* Add some margin for spacing */
+  border: 1px solid black;
+}
+
+/* Style the image div */
+.image-div {
+  text-align: center;
+  border: 1px solid black;
+  padding: 1px;
+  margin: 1rem 0; /* Add margin for spacing */
+}
+
+/* Ensure images scale proportionally */
+.image-div img {
+  max-width: 100%; /* Ensure the image fits within its container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Style the footer */
+footer {
+  background-color: black;
+  color: #fff;
+  width: 100%;
+  padding: 1rem 0; /* Add padding for spacing */
+  text-align: center;
+  position: sticky;
+  bottom: 0;
+}
+
+footer p {
+  font-size: 1rem; /* Adjust font size */
+}

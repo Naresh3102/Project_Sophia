@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <title>Sing with Sophia</title>
+  </head>
+  <body>
+    <h1>Sing with Sophia</h1>
+    <p>Organized by Department of Artificial Intelligence and Data Science</p>
+    <div class="main-container">
+      <div class="text-div">
+        <h2>CAMCEE 3.0</h2>
+        <p>Fun event organized by AIRA</p>
+        <p>Show your face to Sophia</p>
+        <label for="option">Select an option:</label>
+        <input type="text" id="option" list="options" />
+        <datalist id="options">
+          <option value="Track 1"></option>
+          <option value="Track 2"></option>
+        </datalist>
+        <button id="capture-button">Capture</button>
+        <button id="stop-button">Stop Song</button>
+        <p id="emotion"></p>
+        <p id="song"></p>
+      </div>
+      <div class="image-container">
+        <div class="image-div">
+          <img
+            id="video-stream"
+            src="{{url_for('video_feed')}}"
+            width="600px"
+            height="321px"
+            autoplay
+          />
+        </div>
+        <div class="image-div">
+          <img
+            id="captured-image"
+            src=""
+            width="660px"
+            height="321px"
+            style="display: none"
+          />
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2023 Naresh. All rights reserved.</p>
+    </footer>
+    <script>
+      const video = document.getElementById("video-stream");
+      const captureButton = document.getElementById("capture-button");
+      const capturedImage = document.getElementById("captured-image");
+      const emotion_p = document.getElementById("emotion");
+      const song_p = document.getElementById("song");
+      const stopButton = document.getElementById("stop-button");
+
+      stopButton.addEventListener("click", () => {
+        // Stop the currently playing song
+        pygame.mixer.music.stop();
+      });
+
+      function getSelectedOption() {
+        const optionInput = document.getElementById("option");
+        return optionInput.value;
+      }
+
+      captureButton.addEventListener("click", () => {
+        const selectedOption = getSelectedOption(); // Get the selected radio button value
+
+        if (selectedOption !== null) {
+          const canvas = document.createElement("canvas");
+          canvas.width = video.width;
+          canvas.height = video.height;
+          const context = canvas.getContext("2d");
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          capturedImage.src = canvas.toDataURL("image/jpeg");
+          capturedImage.style.display = "block";
+
+          // Send the image data and selectedOption to the server
+          fetch("/capture_frame", {
+            method: "POST",
+            body: JSON.stringify({
+              capturedImage: capturedImage.src,
+              selectedOption,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                // Log a success message to the console
+                console.log(data.emotion);
+                emotion_p.textContent = "Emotion: " + data.emotion;
+              } else {
+                console.error("Failed to capture and save image:", data.error);
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        } else {
+          alert("Please select an option before capturing.");
+        }
+      });
+    </script>
+  </body>
+</html>
